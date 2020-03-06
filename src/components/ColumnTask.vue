@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-2 m-2 rounded">
+  <div class="bg-white p-2 m-2 rounded" @click="openTask">
     <span class="w-full flex-no-shrink font-bold">
       {{ task.name }}
     </span>
@@ -19,6 +19,14 @@ export default {
     task: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    openTask() {
+      this.$router.push({
+        name: 'task',
+        params: { id: this.task.id }
+      });
     }
   }
 };
