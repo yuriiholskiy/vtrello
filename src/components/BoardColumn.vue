@@ -1,6 +1,9 @@
 <template>
   <div
     class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
+    @drop="moveTask($event, column.tasks)"
+    @dragover.prevent
+    @dragenter.prevent
   >
     <div
       class="flex items-center justify-center mb-2 font-bold"
@@ -11,12 +14,14 @@
       <ColumnTask
         v-for="(task, taskIndex) of column.tasks"
         :key="taskIndex"
+        :taskIndex="taskIndex"
+        :columnIndex="columnIndex"
         :task="task"
       />
 
       <input
         type="text"
-        class="block p-2 w-full bg-transparent"
+        class="block p-2 w-full rounded bg-grey-lightest"
         placeholder="+ Enter new task"
         v-model="newTask"
         @keyup.enter="createTask(column.tasks)"
@@ -27,7 +32,7 @@
 
 <script>
 import ColumnTask from './ColumnTask';
-import { CREATE_TASK } from '@/store/consts';
+import { CREATE_TASK, MOVE_TASK } from '@/store/consts';
 export default {
   name: 'BoardColumn',
   props: {
@@ -38,6 +43,10 @@ export default {
     board: {
       type: Object,
       required: false
+    },
+    columnIndex: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -52,6 +61,22 @@ export default {
         name: this.newTask
       });
       this.newTask = '';
+    },
+    moveTask(event, toTasks) {
+      const fromColIndex = event.dataTransfer.getData(
+        'from-col-index'
+      );
+      const taskIndex = event.dataTransfer.getData(
+        'task-index'
+      );
+      const fromTasks = this.board.columns[fromColIndex]
+        .tasks;
+
+      this.$store.commit(MOVE_TASK, {
+        fromTasks,
+        toTasks,
+        taskIndex
+      });
     }
   },
   components: {
