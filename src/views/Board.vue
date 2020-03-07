@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="board p-4 bg-orange-light h-full overflow-auto"
-  >
+  <div class="board p-4 bg-orange-light h-full overflow-auto">
     <div class="flex flex-row items-start">
       <BoardColumn
         v-for="(column, columnIndex) of board.columns"
@@ -16,6 +14,8 @@
           type="text"
           class="p-2 mr-2 flex-grow rounded"
           placeholder="New Column Name"
+          v-model="newColumnName"
+          @keyup.enter="createColumn"
         />
       </div>
     </div>
@@ -32,10 +32,16 @@
 </template>
 
 <script>
+import { CREATE_COLUMN } from '@/store/consts';
 import { mapState } from 'vuex';
 import BoardColumn from '@/components/BoardColumn';
 export default {
   name: 'Board',
+  data() {
+    return {
+      newColumnName: ''
+    };
+  },
   computed: {
     ...mapState(['board']),
     isTaskOpen() {
@@ -45,6 +51,10 @@ export default {
   methods: {
     closeTaskModal() {
       this.$router.push({ name: 'board' });
+    },
+    createColumn() {
+      this.$store.commit(CREATE_COLUMN, { name: this.newColumnName });
+      this.newColumnName = '';
     }
   },
   components: {

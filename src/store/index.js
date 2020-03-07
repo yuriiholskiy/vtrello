@@ -4,18 +4,15 @@ import {
   CREATE_TASK,
   UPDATE_TASK,
   MOVE_TASK,
+  CREATE_COLUMN,
   MOVE_COLUMN
 } from './consts';
 
-import defaultBoard, {
-  saveStateToStorage,
-  uuid
-} from '../utils';
+import defaultBoard, { saveStateToStorage, uuid } from '../utils';
 
 Vue.use(Vuex);
 
-const board =
-  JSON.parse(localStorage.getItem('board')) || defaultBoard;
+const board = JSON.parse(localStorage.getItem('board')) || defaultBoard;
 
 export default new Vuex.Store({
   plugins: [saveStateToStorage],
@@ -33,15 +30,15 @@ export default new Vuex.Store({
     [UPDATE_TASK](_, { task, key, value }) {
       Vue.set(task, key, value);
     },
-    [MOVE_TASK](
-      _,
-      { fromTasks, toTasks, fromTaskIndex, toTaskIndex }
-    ) {
-      const taskToMove = fromTasks.splice(
-        fromTaskIndex,
-        1
-      )[0];
+    [MOVE_TASK](_, { fromTasks, toTasks, fromTaskIndex, toTaskIndex }) {
+      const taskToMove = fromTasks.splice(fromTaskIndex, 1)[0];
       toTasks.splice(toTaskIndex, 0, taskToMove);
+    },
+    [CREATE_COLUMN](state, { name }) {
+      state.board.columns.push({
+        name,
+        tasks: []
+      });
     },
     [MOVE_COLUMN](state, { fromColIndex, toColIndex }) {
       const colList = state.board.columns;
