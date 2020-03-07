@@ -2,16 +2,12 @@
   <div
     class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
     draggable
-    @drop="
-      moveTaskOrColumn($event, column.tasks, columnIndex)
-    "
+    @drop="moveTaskOrColumn($event, column.tasks, columnIndex)"
     @dragover.prevent
     @dragenter.prevent
     @dragstart.self="startDragCol($event, columnIndex)"
   >
-    <div
-      class="flex items-center justify-center mb-2 font-bold"
-    >
+    <div class="flex items-center justify-center mb-2 font-bold">
       {{ column.name }}
     </div>
     <div class="list-reset">
@@ -38,11 +34,7 @@
 
 <script>
 import ColumnTask from './ColumnTask';
-import {
-  CREATE_TASK,
-  MOVE_TASK,
-  MOVE_COLUMN
-} from '@/store/consts';
+import { CREATE_TASK, MOVE_TASK, MOVE_COLUMN } from '@/store/consts';
 export default {
   name: 'BoardColumn',
   props: {
@@ -73,14 +65,9 @@ export default {
       this.newTask = '';
     },
     moveTask(event, toTasks, toTaskIndex) {
-      const fromColIndex = event.dataTransfer.getData(
-        'from-col-index'
-      );
-      const fromTaskIndex = event.dataTransfer.getData(
-        'from-task-index'
-      );
-      const fromTasks = this.board.columns[fromColIndex]
-        .tasks;
+      const fromColIndex = event.dataTransfer.getData('from-col-index');
+      const fromTaskIndex = event.dataTransfer.getData('from-task-index');
+      const fromTasks = this.board.columns[fromColIndex].tasks;
 
       this.$store.commit(MOVE_TASK, {
         fromTasks,
@@ -90,26 +77,17 @@ export default {
       });
     },
     moveColumn(event, toColIndex) {
-      const fromColIndex = event.dataTransfer.getData(
-        'from-col-index'
-      );
+      const fromColIndex = event.dataTransfer.getData('from-col-index');
       this.$store.commit(MOVE_COLUMN, {
         fromColIndex,
         toColIndex
       });
     },
-    moveTaskOrColumn(
-      event,
-      toTasks,
-      toColIndex,
-      toTaskIndex
-    ) {
+    moveTaskOrColumn(event, toTasks, toColIndex, toTaskIndex) {
       const type = event.dataTransfer.getData('type');
       if (type === 'task') {
         const rightIndex =
-          toTaskIndex !== undefined
-            ? toTaskIndex
-            : toTasks.length;
+          toTaskIndex !== undefined ? toTaskIndex : toTasks.length;
         this.moveTask(event, toTasks, rightIndex);
       } else {
         this.moveColumn(event, toColIndex);
@@ -118,10 +96,7 @@ export default {
     startDragCol(event, fromColIndex) {
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.dropEffect = 'move';
-      event.dataTransfer.setData(
-        'from-col-index',
-        fromColIndex
-      );
+      event.dataTransfer.setData('from-col-index', fromColIndex);
       event.dataTransfer.setData('type', 'column');
     }
   },

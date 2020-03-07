@@ -2,27 +2,19 @@
   <div
     class="task-view relative flex flex-row bg-white pin mx-4 m-32 mx-auto py-4 text-left rounded shadow"
   >
-    <div
-      class="flex flex-col flex-grow items-start justify-between px-4"
-    >
+    <div class="flex flex-col flex-grow items-start justify-between px-4">
       <input
         type="text"
         class="w-full p-2 mr-2 block text-xl rounded bg-grey-light"
         :value="task.name"
-        @change="
-          updateTaskProp($event.target.value, 'name')
-        "
-        @keyup.enter="
-          updateTaskProp($event.target.value, 'name')
-        "
+        @change="updateTaskProp($event.target.value, 'name')"
+        @keyup.enter="updateTaskProp($event.target.value, 'name')"
       />
       <textarea
         placeholder="+ you can add description to task"
         class="relative w-full bg-grey-light px-2 border mt-2 h-64 border-none leading-normal"
         :value="task.description"
-        @change="
-          updateTaskProp($event.target.value, 'description')
-        "
+        @change="updateTaskProp($event.target.value, 'description')"
       />
     </div>
   </div>

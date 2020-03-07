@@ -58,9 +58,6 @@ export default {
 export function saveStateToStorage(store) {
   store.subscribe((mutation, state) => {
     if (!mutation) return;
-    localStorage.setItem(
-      'board',
-      JSON.stringify(state.board)
-    );
+    localStorage.setItem('board', JSON.stringify(state.board));
   });
 }
