@@ -5,20 +5,47 @@
     <div
       class="flex flex-col flex-grow items-start justify-between px-4"
     >
-      {{ task.name }}
+      <input
+        type="text"
+        class="w-full p-2 mr-2 block text-xl rounded bg-grey-light"
+        :value="task.name"
+        @change="
+          updateTaskProp($event.target.value, 'name')
+        "
+        @keyup.enter="
+          updateTaskProp($event.target.value, 'name')
+        "
+      />
+      <textarea
+        placeholder="+ you can add description to task"
+        class="relative w-full bg-grey-light px-2 border mt-2 h-64 border-none leading-normal"
+        :value="task.description"
+        @change="
+          updateTaskProp($event.target.value, 'description')
+        "
+      />
     </div>
   </div>
 </template>
 
 <script>
+import { UPDATE_TASK } from '@/store/consts';
 import { mapGetters } from 'vuex';
 export default {
   name: 'Task',
   computed: {
     ...mapGetters(['getTask']),
     task() {
-      const id = this.$route.params.id;
-      return this.getTask(id);
+      return this.getTask(this.$route.params.id);
+    }
+  },
+  methods: {
+    updateTaskProp(value, key) {
+      this.$store.commit(UPDATE_TASK, {
+        task: this.task,
+        key,
+        value
+      });
     }
   }
 };
