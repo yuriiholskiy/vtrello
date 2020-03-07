@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { CREATE_TASK, UPDATE_TASK } from './consts';
+import {
+  CREATE_TASK,
+  UPDATE_TASK,
+  MOVE_TASK
+} from './consts';
+
 import defaultBoard, {
   saveStateToStorage,
   uuid
@@ -26,6 +31,10 @@ export default new Vuex.Store({
     },
     [UPDATE_TASK](_, { task, key, value }) {
       Vue.set(task, key, value);
+    },
+    [MOVE_TASK](_, { fromTasks, toTasks, taskIndex }) {
+      const taskToMove = fromTasks.splice(taskIndex, 1)[0];
+      toTasks.push(taskToMove);
     }
   },
   getters: {

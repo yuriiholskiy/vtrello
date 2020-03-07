@@ -1,17 +1,20 @@
 <template>
-  <div class="board p-4 bg-teal-dark h-full overflow-auto">
+  <div
+    class="board p-4 bg-orange-light h-full overflow-auto"
+  >
     <div class="flex flex-row items-start">
       <BoardColumn
         v-for="(column, columnIndex) of board.columns"
         :key="columnIndex"
         :column="column"
         :board="board"
+        :columnIndex="columnIndex"
       />
 
       <div class="column flex">
         <input
           type="text"
-          class="p-2 mr-2 flex-grow"
+          class="p-2 mr-2 flex-grow rounded"
           placeholder="New Column Name"
         />
       </div>

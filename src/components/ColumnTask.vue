@@ -1,5 +1,10 @@
 <template>
-  <div class="bg-white p-2 m-2 rounded" @click="openTask">
+  <div
+    class="bg-white p-2 m-2 rounded"
+    @click="openTask"
+    draggable
+    @dragstart="startDrag($event, taskIndex, columnIndex)"
+  >
     <span class="w-full flex-no-shrink font-bold">
       {{ task.name }}
     </span>
@@ -19,6 +24,14 @@ export default {
     task: {
       type: Object,
       required: true
+    },
+    taskIndex: {
+      type: Number,
+      required: true
+    },
+    columnIndex: {
+      type: Number,
+      required: true
     }
   },
   methods: {
@@ -27,6 +40,15 @@ export default {
         name: 'task',
         params: { id: this.task.id }
       });
+    },
+    startDrag(event, taskIndex, fromColIndex) {
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.dropEffect = 'move';
+      event.dataTransfer.setData('task-index', taskIndex);
+      event.dataTransfer.setData(
+        'from-col-index',
+        fromColIndex
+      );
     }
   }
 };
