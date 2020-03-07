@@ -8,12 +8,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Board',
+    name: 'board',
     component: Board,
     children: [
       {
         path: 'task/:id',
-        name: 'Task',
+        name: 'task',
         component: Task
       }
     ]

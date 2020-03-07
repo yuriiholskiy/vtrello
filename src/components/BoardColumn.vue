@@ -18,6 +18,8 @@
         type="text"
         class="block p-2 w-full bg-transparent"
         placeholder="+ Enter new task"
+        v-model="newTask"
+        @keyup.enter="createTask(column.tasks)"
       />
     </div>
   </div>
@@ -25,6 +27,7 @@
 
 <script>
 import ColumnTask from './ColumnTask';
+import { CREATE_TASK } from '@/store/consts';
 export default {
   name: 'BoardColumn',
   props: {
@@ -35,6 +38,20 @@ export default {
     board: {
       type: Object,
       required: false
+    }
+  },
+  data() {
+    return {
+      newTask: ''
+    };
+  },
+  methods: {
+    createTask(tasks) {
+      this.$store.commit(CREATE_TASK, {
+        tasks,
+        name: this.newTask
+      });
+      this.newTask = '';
     }
   },
   components: {
