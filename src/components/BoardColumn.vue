@@ -1,9 +1,13 @@
 <template>
   <div
     class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
-    @drop="moveTask($event, column.tasks)"
+    draggable
+    @drop="
+      moveTaskOrColumn($event, column.tasks, columnIndex)
+    "
     @dragover.prevent
     @dragenter.prevent
+    @dragstart.self="startDragCol($event, columnIndex)"
   >
     <div
       class="flex items-center justify-center mb-2 font-bold"
@@ -16,7 +20,9 @@
         :key="taskIndex"
         :taskIndex="taskIndex"
         :columnIndex="columnIndex"
+        :tasks="column.tasks"
         :task="task"
+        :moveTaskOrColumn="moveTaskOrColumn"
       />
 
       <input
@@ -32,7 +38,11 @@
 
 <script>
 import ColumnTask from './ColumnTask';
-import { CREATE_TASK, MOVE_TASK } from '@/store/consts';
+import {
+  CREATE_TASK,
+  MOVE_TASK,
+  MOVE_COLUMN
+} from '@/store/consts';
 export default {
   name: 'BoardColumn',
   props: {
@@ -62,21 +72,57 @@ export default {
       });
       this.newTask = '';
     },
-    moveTask(event, toTasks) {
+    moveTask(event, toTasks, toTaskIndex) {
       const fromColIndex = event.dataTransfer.getData(
         'from-col-index'
       );
-      const taskIndex = event.dataTransfer.getData(
-        'task-index'
+      const fromTaskIndex = event.dataTransfer.getData(
+        'from-task-index'
       );
       const fromTasks = this.board.columns[fromColIndex]
         .tasks;
 
       this.$store.commit(MOVE_TASK, {
         fromTasks,
+        fromTaskIndex,
         toTasks,
-        taskIndex
+        toTaskIndex
       });
+    },
+    moveColumn(event, toColIndex) {
+      const fromColIndex = event.dataTransfer.getData(
+        'from-col-index'
+      );
+      this.$store.commit(MOVE_COLUMN, {
+        fromColIndex,
+        toColIndex
+      });
+    },
+    moveTaskOrColumn(
+      event,
+      toTasks,
+      toColIndex,
+      toTaskIndex
+    ) {
+      const type = event.dataTransfer.getData('type');
+      if (type === 'task') {
+        const rightIndex =
+          toTaskIndex !== undefined
+            ? toTaskIndex
+            : toTasks.length;
+        this.moveTask(event, toTasks, rightIndex);
+      } else {
+        this.moveColumn(event, toColIndex);
+      }
+    },
+    startDragCol(event, fromColIndex) {
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.dropEffect = 'move';
+      event.dataTransfer.setData(
+        'from-col-index',
+        fromColIndex
+      );
+      event.dataTransfer.setData('type', 'column');
     }
   },
   components: {
