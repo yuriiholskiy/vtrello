@@ -3,7 +3,7 @@
     class="bg-white p-2 m-2 rounded"
     @click="openTask"
     draggable
-    @dragstart="startDrag($event, taskIndex, columnIndex)"
+    @dragstart="startDragTask($event, taskIndex, columnIndex)"
     @dragover.prevent
     @dragenter.prevent
     @drop.stop="moveTaskOrColumn($event, tasks, columnIndex, taskIndex)"
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import movingTaskAndColMixin from '@/mixins/movingTaskAndColMixin';
 export default {
   name: 'ColumnTask',
   props: {
@@ -32,16 +33,9 @@ export default {
     taskIndex: {
       type: Number,
       required: true
-    },
-    columnIndex: {
-      type: Number,
-      required: true
-    },
-    moveTaskOrColumn: {
-      type: Function,
-      default: () => {}
     }
   },
+  mixins: [movingTaskAndColMixin],
   methods: {
     openTask() {
       this.$router.push({
@@ -49,7 +43,7 @@ export default {
         params: { id: this.task.id }
       });
     },
-    startDrag(event, taskIndex, fromColIndex) {
+    startDragTask(event, taskIndex, fromColIndex) {
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.dropEffect = 'move';
       event.dataTransfer.setData('from-task-index', taskIndex);

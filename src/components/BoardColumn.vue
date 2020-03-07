@@ -18,7 +18,7 @@
         :columnIndex="columnIndex"
         :tasks="column.tasks"
         :task="task"
-        :moveTaskOrColumn="moveTaskOrColumn"
+        :board="board"
       />
 
       <input
@@ -34,23 +34,17 @@
 
 <script>
 import ColumnTask from './ColumnTask';
-import { CREATE_TASK, MOVE_TASK, MOVE_COLUMN } from '@/store/consts';
+import { CREATE_TASK } from '@/store/consts';
+import movingTaskAndColMixin from '@/mixins/movingTaskAndColMixin';
 export default {
   name: 'BoardColumn',
   props: {
     column: {
       type: Object,
       required: true
-    },
-    board: {
-      type: Object,
-      required: false
-    },
-    columnIndex: {
-      type: Number,
-      required: true
     }
   },
+  mixins: [movingTaskAndColMixin],
   data() {
     return {
       newTask: ''
@@ -63,35 +57,6 @@ export default {
         name: this.newTask
       });
       this.newTask = '';
-    },
-    moveTask(event, toTasks, toTaskIndex) {
-      const fromColIndex = event.dataTransfer.getData('from-col-index');
-      const fromTaskIndex = event.dataTransfer.getData('from-task-index');
-      const fromTasks = this.board.columns[fromColIndex].tasks;
-
-      this.$store.commit(MOVE_TASK, {
-        fromTasks,
-        fromTaskIndex,
-        toTasks,
-        toTaskIndex
-      });
-    },
-    moveColumn(event, toColIndex) {
-      const fromColIndex = event.dataTransfer.getData('from-col-index');
-      this.$store.commit(MOVE_COLUMN, {
-        fromColIndex,
-        toColIndex
-      });
-    },
-    moveTaskOrColumn(event, toTasks, toColIndex, toTaskIndex) {
-      const type = event.dataTransfer.getData('type');
-      if (type === 'task') {
-        const rightIndex =
-          toTaskIndex !== undefined ? toTaskIndex : toTasks.length;
-        this.moveTask(event, toTasks, rightIndex);
-      } else {
-        this.moveColumn(event, toColIndex);
-      }
     },
     startDragCol(event, fromColIndex) {
       event.dataTransfer.effectAllowed = 'move';
