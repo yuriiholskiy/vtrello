@@ -4,6 +4,16 @@
     @click="openTask"
     draggable
     @dragstart="startDrag($event, taskIndex, columnIndex)"
+    @dragover.prevent
+    @dragenter.prevent
+    @drop.stop="
+      moveTaskOrColumn(
+        $event,
+        tasks,
+        columnIndex,
+        taskIndex
+      )
+    "
   >
     <span class="w-full flex-no-shrink font-bold">
       {{ task.name }}
@@ -25,6 +35,10 @@ export default {
       type: Object,
       required: true
     },
+    tasks: {
+      type: Array,
+      required: true
+    },
     taskIndex: {
       type: Number,
       required: true
@@ -32,6 +46,10 @@ export default {
     columnIndex: {
       type: Number,
       required: true
+    },
+    moveTaskOrColumn: {
+      type: Function,
+      default: () => {}
     }
   },
   methods: {
@@ -44,11 +62,15 @@ export default {
     startDrag(event, taskIndex, fromColIndex) {
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.dropEffect = 'move';
-      event.dataTransfer.setData('task-index', taskIndex);
+      event.dataTransfer.setData(
+        'from-task-index',
+        taskIndex
+      );
       event.dataTransfer.setData(
         'from-col-index',
         fromColIndex
       );
+      event.dataTransfer.setData('type', 'task');
     }
   }
 };
