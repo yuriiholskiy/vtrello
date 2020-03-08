@@ -5,39 +5,37 @@ export default {
       type: Object,
       required: false
     },
+    column: {
+      type: Object,
+      required: true
+    },
     columnIndex: {
       type: Number,
       required: true
     }
   },
   methods: {
-    moveTask(event, toTasks, toTaskIndex) {
-      const fromColIndex = event.dataTransfer.getData('from-col-index');
-      const fromTaskIndex = event.dataTransfer.getData('from-task-index');
+    moveTask({ fromColIndex, fromTaskIndex }) {
       const fromTasks = this.board.columns[fromColIndex].tasks;
 
       this.$store.commit(MOVE_TASK, {
         fromTasks,
         fromTaskIndex,
-        toTasks,
-        toTaskIndex
+        toTasks: this.column.tasks,
+        toTaskIndex: this.taskIndex
       });
     },
-    moveColumn(event, toColIndex) {
-      const fromColIndex = event.dataTransfer.getData('from-col-index');
+    moveColumn({ fromColIndex }) {
       this.$store.commit(MOVE_COLUMN, {
         fromColIndex,
-        toColIndex
+        toColIndex: this.columnIndex
       });
     },
-    moveTaskOrColumn(event, toTasks, toColIndex, toTaskIndex) {
-      const type = event.dataTransfer.getData('type');
-      if (type === 'task') {
-        const rightIndex =
-          toTaskIndex !== undefined ? toTaskIndex : toTasks.length;
-        this.moveTask(event, toTasks, rightIndex);
+    moveTaskOrColumn(transferData) {
+      if (transferData.type === 'task') {
+        this.moveTask(transferData);
       } else {
-        this.moveColumn(event, toColIndex);
+        this.moveColumn(transferData);
       }
     }
   }

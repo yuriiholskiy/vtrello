@@ -1,49 +1,44 @@
 <template>
-  <div
-    class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
-    draggable
-    @drop="moveTaskOrColumn($event, column.tasks, columnIndex)"
-    @dragover.prevent
-    @dragenter.prevent
-    @dragstart.self="startDragCol($event, columnIndex)"
-  >
-    <div class="flex items-center justify-center mb-2 font-bold">
-      {{ column.name }}
-    </div>
-    <div class="list-reset">
-      <ColumnTask
-        v-for="(task, taskIndex) of column.tasks"
-        :key="taskIndex"
-        :taskIndex="taskIndex"
-        :columnIndex="columnIndex"
-        :tasks="column.tasks"
-        :task="task"
-        :board="board"
-      />
+  <AppDrop @drop="moveTaskOrColumn">
+    <AppDrag
+      class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-128 overflow-y-auto"
+      :transfer-data="{ type: 'column', fromColIndex: columnIndex }"
+    >
+      <div class="flex items-center justify-center mb-2 font-bold">
+        {{ column.name }}
+      </div>
+      <div class="list-reset">
+        <ColumnTask
+          v-for="(task, taskIndex) of column.tasks"
+          :key="taskIndex"
+          :task-index="taskIndex"
+          :column-index="columnIndex"
+          :column="column"
+          :tasks="column.tasks"
+          :task="task"
+          :board="board"
+        />
 
-      <input
-        type="text"
-        class="block p-2 w-full rounded bg-grey-lightest"
-        placeholder="+ Enter new task"
-        v-model="newTask"
-        @keyup.enter="createTask(column.tasks)"
-      />
-    </div>
-  </div>
+        <input
+          type="text"
+          class="block p-2 w-full rounded bg-grey-lightest"
+          placeholder="+ Enter new task"
+          v-model="newTask"
+          @keyup.enter="createTask(column.tasks)"
+        />
+      </div>
+    </AppDrag>
+  </AppDrop>
 </template>
 
 <script>
-import ColumnTask from './ColumnTask';
 import { CREATE_TASK } from '@/store/consts';
+import ColumnTask from '@/components/ColumnTask';
+import AppDrag from '@/components/AppDrag';
+import AppDrop from '@/components/AppDrop';
 import movingTaskAndColMixin from '@/mixins/movingTaskAndColMixin';
 export default {
   name: 'BoardColumn',
-  props: {
-    column: {
-      type: Object,
-      required: true
-    }
-  },
   mixins: [movingTaskAndColMixin],
   data() {
     return {
@@ -57,16 +52,12 @@ export default {
         name: this.newTask
       });
       this.newTask = '';
-    },
-    startDragCol(event, fromColIndex) {
-      event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.dropEffect = 'move';
-      event.dataTransfer.setData('from-col-index', fromColIndex);
-      event.dataTransfer.setData('type', 'column');
     }
   },
   components: {
-    ColumnTask
+    ColumnTask,
+    AppDrag,
+    AppDrop
   }
 };
 </script>

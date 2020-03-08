@@ -6,7 +6,7 @@
         :key="columnIndex"
         :column="column"
         :board="board"
-        :columnIndex="columnIndex"
+        :column-index="columnIndex"
       />
 
       <div class="column flex">
