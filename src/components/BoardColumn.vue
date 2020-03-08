@@ -1,10 +1,13 @@
 <template>
-  <AppDrop @drop="moveTaskOrColumn" @dblclick="removeColumn(columnIndex)">
+  <AppDrop @drop="moveTaskOrColumn">
     <AppDrag
       class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-128 overflow-y-auto"
       :transfer-data="{ type: 'column', fromColIndex: columnIndex }"
     >
-      <div class="flex items-center justify-center mb-2 font-bold">
+      <div
+        class="flex items-center justify-center mb-2 font-bold"
+        @dblclick="removeColumn(columnIndex)"
+      >
         {{ column.name }}
       </div>
       <div class="list-reset">
@@ -14,7 +17,6 @@
           :task-index="taskIndex"
           :column-index="columnIndex"
           :column="column"
-          :tasks="column.tasks"
           :task="task"
           :board="board"
         />

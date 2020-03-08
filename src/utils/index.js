@@ -14,19 +14,55 @@ export default {
           description: '',
           name: 'first task',
           id: uuid(),
-          userAssigned: null
+          userAssigned: null,
+          comments: [
+            {
+              id: uuid(),
+              content: 'Some comment title',
+              author: 'Who?'
+            },
+            {
+              id: uuid(),
+              content: 'Some comment title 2',
+              author: 'Who?'
+            }
+          ]
         },
         {
           description: '',
           name: 'second task',
           id: uuid(),
-          userAssigned: null
+          userAssigned: null,
+          comments: [
+            {
+              id: uuid(),
+              content: 'Some comment title',
+              author: 'Who?'
+            }
+          ]
         },
         {
           description: '',
           name: 'and thrid',
           id: uuid(),
-          userAssigned: null
+          userAssigned: null,
+          comments: [
+            {
+              id: uuid(),
+              content: 'Some comment title',
+              author: 'Who?'
+            },
+            {
+              id: uuid(),
+              content: 'Some comment title 2',
+              author: 'Who?'
+            },
+            {
+              id: uuid(),
+              content: 'Some comment title 3',
+              author: 'Who?'
+            }
+          ]
         }
       ]
     },
@@ -37,7 +73,19 @@ export default {
           description: '',
           name: 'first task',
           id: uuid(),
-          userAssigned: null
+          userAssigned: null,
+          comments: [
+            {
+              id: uuid(),
+              content: 'Some comment title',
+              author: 'Who?'
+            },
+            {
+              id: uuid(),
+              content: 'Some comment title 2',
+              author: 'Who?'
+            }
+          ]
         }
       ]
     },
@@ -48,7 +96,24 @@ export default {
           description: '',
           name: 'first task',
           id: uuid(),
-          userAssigned: null
+          userAssigned: null,
+          comments: [
+            {
+              id: uuid(),
+              content: 'Some comment title',
+              author: 'Who?'
+            },
+            {
+              id: uuid(),
+              content: 'Some comment title 2',
+              author: 'Who?'
+            },
+            {
+              id: uuid(),
+              content: 'Some comment title 3',
+              author: 'Who?'
+            }
+          ]
         }
       ]
     }
@@ -56,8 +121,7 @@ export default {
 };
 
 export function saveStateToStorage(store) {
-  store.subscribe((mutation, state) => {
-    if (!mutation) return;
+  store.subscribe((_, state) => {
     localStorage.setItem('board', JSON.stringify(state.board));
   });
 }

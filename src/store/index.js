@@ -6,7 +6,8 @@ import {
   MOVE_TASK,
   CREATE_COLUMN,
   REMOVE_COLUMN,
-  MOVE_COLUMN
+  MOVE_COLUMN,
+  ADD_COMMENT
 } from './consts';
 
 import defaultBoard, { saveStateToStorage, uuid } from '../utils';
@@ -25,7 +26,8 @@ export default new Vuex.Store({
       tasks.push({
         name,
         id: uuid(),
-        description: ''
+        description: '',
+        comments: []
       });
     },
     [UPDATE_TASK](_, { task, key, value }) {
@@ -48,6 +50,10 @@ export default new Vuex.Store({
       const colList = state.board.columns;
       const colToMove = colList.splice(fromColIndex, 1)[0];
       colList.splice(toColIndex, 0, colToMove);
+    },
+    [ADD_COMMENT](_, { task, comment }) {
+      comment.id = uuid();
+      task.comments.push(comment);
     }
   },
   actions: {
@@ -71,6 +77,9 @@ export default new Vuex.Store({
     },
     [REMOVE_COLUMN]({ commit }, colIndex) {
       commit(REMOVE_COLUMN, colIndex);
+    },
+    [ADD_COMMENT]({ commit }, { task, comment }) {
+      commit(ADD_COMMENT, { task, comment });
     }
   },
   getters: {

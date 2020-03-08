@@ -1,7 +1,7 @@
 <template>
   <AppDrop @drop="moveTaskOrColumn">
     <AppDrag
-      class="bg-white p-2 m-2 rounded"
+      class="bg-white p-3 m-2 rounded cursor-pointer hover:bg-grey-lighter"
       :transfer-data="{
         type: 'task',
         fromColIndex: columnIndex,
@@ -30,10 +30,6 @@ export default {
       type: Object,
       required: true
     },
-    tasks: {
-      type: Array,
-      required: true
-    },
     taskIndex: {
       type: Number,
       required: true
@@ -54,5 +50,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

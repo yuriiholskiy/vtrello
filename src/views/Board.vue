@@ -1,5 +1,5 @@
 <template>
-  <div class="board p-4 bg-orange-light h-full overflow-auto">
+  <div class="board p-4 h-full overflow-auto">
     <div class="flex flex-row items-start">
       <BoardColumn
         v-for="(column, columnIndex) of board.columns"
@@ -21,7 +21,7 @@
     </div>
     <transition name="fade" mode="out-in">
       <div
-        class="task-bg pin absolute"
+        class="task-bg pin absolute px-4"
         v-if="isTaskOpen"
         @click.self="closeTaskModal"
       >
@@ -64,6 +64,9 @@ export default {
 </script>
 
 <style>
+.board {
+  background-color: rgb(0, 121, 191);
+}
 .task-bg {
   background-color: rgba(0, 0, 0, 0.5);
 }
