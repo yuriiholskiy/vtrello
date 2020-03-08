@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     updateTaskProp(value, key) {
-      this.$store.commit(UPDATE_TASK, {
+      this.$store.dispatch(UPDATE_TASK, {
         task: this.task,
         key,
         value

@@ -53,7 +53,7 @@ export default {
       this.$router.push({ name: 'board' });
     },
     createColumn() {
-      this.$store.commit(CREATE_COLUMN, { name: this.newColumnName });
+      this.$store.dispatch(CREATE_COLUMN, { name: this.newColumnName });
       this.newColumnName = '';
     }
   },

@@ -18,7 +18,7 @@ export default {
     moveTask({ fromColIndex, fromTaskIndex }) {
       const fromTasks = this.board.columns[fromColIndex].tasks;
 
-      this.$store.commit(MOVE_TASK, {
+      this.$store.dispatch(MOVE_TASK, {
         fromTasks,
         fromTaskIndex,
         toTasks: this.column.tasks,
@@ -26,7 +26,7 @@ export default {
       });
     },
     moveColumn({ fromColIndex }) {
-      this.$store.commit(MOVE_COLUMN, {
+      this.$store.dispatch(MOVE_COLUMN, {
         fromColIndex,
         toColIndex: this.columnIndex
       });

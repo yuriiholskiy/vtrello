@@ -1,5 +1,5 @@
 <template>
-  <AppDrop @drop="moveTaskOrColumn">
+  <AppDrop @drop="moveTaskOrColumn" @dblclick="removeColumn(columnIndex)">
     <AppDrag
       class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-128 overflow-y-auto"
       :transfer-data="{ type: 'column', fromColIndex: columnIndex }"
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { CREATE_TASK } from '@/store/consts';
+import { CREATE_TASK, REMOVE_COLUMN } from '@/store/consts';
 import ColumnTask from '@/components/ColumnTask';
 import AppDrag from '@/components/AppDrag';
 import AppDrop from '@/components/AppDrop';
@@ -47,11 +47,14 @@ export default {
   },
   methods: {
     createTask(tasks) {
-      this.$store.commit(CREATE_TASK, {
+      this.$store.dispatch(CREATE_TASK, {
         tasks,
         name: this.newTask
       });
       this.newTask = '';
+    },
+    removeColumn(colIndex) {
+      this.$store.dispatch(REMOVE_COLUMN, colIndex);
     }
   },
   components: {

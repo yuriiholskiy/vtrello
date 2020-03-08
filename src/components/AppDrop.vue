@@ -1,5 +1,10 @@
 <template>
-  <div @drop.stop="handleDrop" @dragover.prevent @dragenter.prevent>
+  <div
+    v-on="$listeners"
+    @drop.stop="handleDrop"
+    @dragover.prevent
+    @dragenter.prevent
+  >
     <slot></slot>
   </div>
 </template>
