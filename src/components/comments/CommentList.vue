@@ -1,5 +1,5 @@
 <template>
-  <ul class="comments mt-2 list-reset md:w-1/2 w-full">
+  <ul class="comments mt-2 list-reset w-full">
     <CommentItem
       v-for="comment of task.comments"
       :comment="comment"

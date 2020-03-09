@@ -5,10 +5,17 @@
       :transfer-data="{ type: 'column', fromColIndex: columnIndex }"
     >
       <div
-        class="flex items-center justify-center mb-2 font-bold"
+        class="flex items-center justify-around font-bold"
         @dblclick="removeColumn(columnIndex)"
       >
-        {{ column.name }}
+        <span>{{ column.name }}</span>
+        <button
+          v-if="isClearBtnShown"
+          class="p-2 text-white bg-indigo rounded"
+          @click="removeAllTask(columnIndex)"
+        >
+          Clear task
+        </button>
       </div>
       <div class="list-reset">
         <ColumnTask
@@ -33,7 +40,7 @@
 </template>
 
 <script>
-import { CREATE_TASK, REMOVE_COLUMN } from '@/store/consts';
+import { CREATE_TASK, REMOVE_ALL_TASKS, REMOVE_COLUMN } from '@/store/consts';
 import ColumnTask from '@/components/task/ColumnTask';
 import AppDrag from '@/components/reusable/AppDrag';
 import AppDrop from '@/components/reusable/AppDrop';
@@ -47,6 +54,11 @@ export default {
       newTask: ''
     };
   },
+  computed: {
+    isClearBtnShown() {
+      return this.column.tasks.length;
+    }
+  },
   methods: {
     createTask(tasks) {
       this.$store.dispatch(CREATE_TASK, {
@@ -57,6 +69,9 @@ export default {
     },
     removeColumn(colIndex) {
       this.$store.dispatch(REMOVE_COLUMN, colIndex);
+    },
+    removeAllTask(colIndex) {
+      this.$store.dispatch(REMOVE_ALL_TASKS, colIndex);
     }
   },
   components: {

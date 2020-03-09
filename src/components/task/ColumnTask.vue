@@ -11,9 +11,9 @@
     >
       <div class="w-full flex justify-between font-bold">
         <p>{{ task.name }}</p>
-        <span class="text-sm" v-if="commentsCount > 0">{{
-          commentsCount
-        }}</span>
+        <span class="text-sm" v-if="commentsCount > 0"
+          >{{ commentsCount }} comments</span
+        >
       </div>
       <p v-if="task.description" class="w-full flex-no-shrink mt-1 text-sm">
         {{ task.description }}

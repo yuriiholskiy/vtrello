@@ -1,5 +1,5 @@
 <template>
-  <form class="md:w-1/2 mt-2 w-full" @submit.prevent="addComment">
+  <form class="my-2 w-full" @submit.prevent="addComment">
     <AppInputField
       v-model="comment.author"
       type="text"

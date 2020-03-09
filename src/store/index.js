@@ -4,6 +4,7 @@ import {
   CREATE_TASK,
   UPDATE_TASK,
   MOVE_TASK,
+  REMOVE_ALL_TASKS,
   CREATE_COLUMN,
   REMOVE_COLUMN,
   MOVE_COLUMN,
@@ -37,6 +38,10 @@ export default new Vuex.Store({
       const taskToMove = fromTasks.splice(fromTaskIndex, 1)[0];
       toTasks.splice(toTaskIndex, 0, taskToMove);
     },
+    [REMOVE_ALL_TASKS](state, colIndex) {
+      const column = state.board.columns[colIndex];
+      column.tasks.splice(0, column.tasks.length);
+    },
     [CREATE_COLUMN](state, { name }) {
       state.board.columns.push({
         name,
@@ -68,6 +73,9 @@ export default new Vuex.Store({
       { fromTasks, toTasks, fromTaskIndex, toTaskIndex }
     ) {
       commit(MOVE_TASK, { fromTasks, toTasks, fromTaskIndex, toTaskIndex });
+    },
+    [REMOVE_ALL_TASKS]({ commit }, colIndex) {
+      commit(REMOVE_ALL_TASKS, colIndex);
     },
     [CREATE_COLUMN]({ commit }, { name }) {
       commit(CREATE_COLUMN, { name });

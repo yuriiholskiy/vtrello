@@ -5,7 +5,8 @@
     :value="value"
     v-on="combineListeners"
     class="relative w-full bg-grey-light px-2 border rounded mt-2 h-32 border-none leading-normal"
-  />
+  >
+  </textarea>
   <input
     v-else-if="fieldType === 'input'"
     v-bind="$attrs"

@@ -1,5 +1,5 @@
 <template>
-  <div class="task-view overflow-y-auto">
+  <div class="task-view max-h-128 overflow-y-auto">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
       <TaskUpdateForm :task="task" />
       <button
@@ -10,13 +10,10 @@
         {{ hideCommentsBtnText }}
       </button>
       <transition name="fade" mode="out-in">
-        <div
-          class="w-full md:h-auto max-h-64 overflow-y-auto"
-          v-if="isCommentShow"
-        >
+        <div class="w-full md:h-auto" v-if="isCommentShow">
           <h3 class="mt-4 text-grey-darker text-xl">Comments:</h3>
 
-          <div class="block md:flex w-full" v-if="isCommentShow">
+          <div class="block w-full" v-if="isCommentShow">
             <CommentList :task="task" v-if="task.comments.length" />
             <CommentAddForm :task="task" />
           </div>
@@ -35,7 +32,7 @@ export default {
   name: 'Task',
   data() {
     return {
-      isCommentShow: true
+      isCommentShow: false
     };
   },
   computed: {
