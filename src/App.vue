@@ -17,4 +17,14 @@ body {
   color: #2c3e50;
   height: 100%;
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.3s opacity;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

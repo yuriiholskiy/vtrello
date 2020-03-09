@@ -25,7 +25,7 @@ export default {
 
 <style>
 .comment {
-  @apply inline-flex items-center bg-white leading-none rounded-full p-2 text-purple text-sm shadow-md;
+  @apply inline-flex items-center w-full bg-white leading-none rounded-full p-2 text-purple text-sm shadow-md;
 }
 .author {
   @apply inline-flex bg-indigo text-white rounded-full h-6 px-3 justify-center items-center;

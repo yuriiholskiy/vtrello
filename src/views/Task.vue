@@ -1,114 +1,71 @@
 <template>
   <div class="task-view overflow-y-auto">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <AppInputField
-        type="text"
-        class="text-xl"
-        :value="task.name"
-        @change="updateTaskProp($event.target.value, 'name')"
-        @keyup.enter="updateTaskProp($event.target.value, 'name')"
-      />
-      <AppInputField
-        field-type="textarea"
-        :value="task.description"
-        placeholder="+ you can add a description"
-        @change="updateTaskProp($event.target.value, 'description')"
-        @keyup.enter="updateTaskProp($event.target.value, 'description')"
-      />
-      <template>
-        <h3 class="mt-4 text-grey-darker text-xl">Comments:</h3>
-        <div class="block md:flex w-full">
-          <ul
-            class="comments mt-2 list-reset md:w-1/2 w-full"
-            v-if="task.comments.length"
-          >
-            <CommentItem
-              v-for="comment of task.comments"
-              :comment="comment"
-              :key="comment.id"
-            />
-          </ul>
-          <form class="md:w-1/2 mt-2 w-full" @submit.prevent="addComment">
-            <AppInputField
-              v-model="comment.author"
-              type="text"
-              placeholder="who you are?"
-            />
-            <AppInputField
-              v-model="comment.content"
-              field-type="textarea"
-              class="h-16"
-              placeholder="+ you can add a comment"
-            />
-            <input
-              class="btn hover:bg-blue-dark"
-              type="submit"
-              value="+ add comment"
-            />
-          </form>
+      <TaskUpdateForm :task="task" />
+      <button
+        type="button"
+        class="btn mt-4 bg-indigo-dark rounded"
+        @click="hideComments"
+      >
+        {{ hideCommentsBtnText }}
+      </button>
+      <transition name="fade" mode="out-in">
+        <div
+          class="w-full md:h-auto max-h-64 overflow-y-auto"
+          v-if="isCommentShow"
+        >
+          <h3 class="mt-4 text-grey-darker text-xl">Comments:</h3>
+
+          <div class="block md:flex w-full" v-if="isCommentShow">
+            <CommentList :task="task" v-if="task.comments.length" />
+            <CommentAddForm :task="task" />
+          </div>
         </div>
-      </template>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-import { UPDATE_TASK, ADD_COMMENT } from '@/store/consts';
 import { mapGetters } from 'vuex';
-import AppInputField from '@/components/AppInputField';
-import CommentItem from '@/components/CommentItem';
+import TaskUpdateForm from '@/components/task/TaskUpdateForm';
+import CommentList from '@/components/comments/CommentList';
+import CommentAddForm from '@/components/comments/CommentAddForm';
 export default {
   name: 'Task',
   data() {
     return {
-      comment: {
-        author: '',
-        content: ''
-      }
+      isCommentShow: true
     };
   },
   computed: {
     ...mapGetters(['getTask']),
     task() {
       return this.getTask(this.$route.params.id);
+    },
+    hideCommentsBtnText() {
+      return this.isCommentShow ? 'Hide comments' : 'Show comments';
     }
   },
   methods: {
-    createFreshComment() {
-      return {
-        author: '',
-        content: ''
-      };
-    },
-    updateTaskProp(value, key) {
-      this.$store.dispatch(UPDATE_TASK, {
-        task: this.task,
-        key,
-        value
-      });
-    },
-    addComment() {
-      const comment = {
-        author: this.comment.author,
-        content: this.comment.content
-      };
-      this.$store.dispatch(ADD_COMMENT, { task: this.task, comment });
-      this.comment = this.createFreshComment();
+    hideComments() {
+      this.isCommentShow = !this.isCommentShow;
     }
   },
   components: {
-    AppInputField,
-    CommentItem
+    TaskUpdateForm,
+    CommentList,
+    CommentAddForm
   }
 };
 </script>
 
 <style>
 .task-view {
-  @apply relative flex flex-row bg-white pin mx-4 mt-8 mx-auto py-4 text-left rounded shadow;
+  @apply relative flex flex-row bg-white pin mx-4 mt-8 mx-auto py-4 text-left shadow;
 }
 .btn {
-  @apply bg-blue text-white font-bold py-2 px-4 rounded mt-1;
+  @apply bg-blue text-white font-bold py-2 px-4 mt-1 cursor-pointer;
 }
 
 .task-view {

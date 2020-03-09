@@ -70,15 +70,4 @@ export default {
 .task-bg {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: 0.3s opacity;
-}
-.fade-enter {
-  opacity: 0;
-}
-.fade-leave-to {
-  opacity: 0;
-}
 </style>

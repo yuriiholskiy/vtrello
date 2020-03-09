@@ -21,9 +21,8 @@
           :board="board"
         />
 
-        <input
-          type="text"
-          class="block p-2 w-full rounded bg-grey-lightest"
+        <AppInputField
+          field-type="input"
           placeholder="+ Enter new task"
           v-model="newTask"
           @keyup.enter="createTask(column.tasks)"
@@ -35,9 +34,10 @@
 
 <script>
 import { CREATE_TASK, REMOVE_COLUMN } from '@/store/consts';
-import ColumnTask from '@/components/ColumnTask';
-import AppDrag from '@/components/AppDrag';
-import AppDrop from '@/components/AppDrop';
+import ColumnTask from '@/components/task/ColumnTask';
+import AppDrag from '@/components/reusable/AppDrag';
+import AppDrop from '@/components/reusable/AppDrop';
+import AppInputField from '@/components/ui/AppInputField';
 import movingTaskAndColMixin from '@/mixins/movingTaskAndColMixin';
 export default {
   name: 'BoardColumn',
@@ -62,7 +62,8 @@ export default {
   components: {
     ColumnTask,
     AppDrag,
-    AppDrop
+    AppDrop,
+    AppInputField
   }
 };
 </script>
