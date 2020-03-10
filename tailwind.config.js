@@ -41,7 +41,7 @@ View the full documentation at https://tailwindcss.com.
 | "secondary", or even a numeric scale like "100" and "200", go for it.
 |
 */
-
+const APP_TOOLBAR_HEIGHT = 46;
 let colors = {
   transparent: 'transparent',
 
@@ -518,7 +518,8 @@ module.exports = {
     '64': '16rem',
     '128': '32rem',
     full: '100%',
-    screen: '100vh'
+    screen: '100vh',
+    'with-toolbar': `calc(100vh - ${APP_TOOLBAR_HEIGHT}px)`
   },
 
   /*
@@ -557,7 +558,8 @@ module.exports = {
   minHeight: {
     '0': '0',
     full: '100%',
-    screen: '100vh'
+    screen: '100vh',
+    'with-toolbar': `calc(100vh - ${APP_TOOLBAR_HEIGHT}px)`
   },
 
   /*

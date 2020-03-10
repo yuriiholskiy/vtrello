@@ -1,5 +1,5 @@
 <template>
-  <div class="board p-4 h-full overflow-auto">
+  <div class="board p-4 min-h-with-toolbar overflow-auto">
     <div class="flex flex-row items-start">
       <BoardColumn
         v-for="(column, columnIndex) of board.columns"
