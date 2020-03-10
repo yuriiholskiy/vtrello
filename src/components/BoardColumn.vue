@@ -61,17 +61,17 @@ export default {
   },
   methods: {
     createTask(tasks) {
-      this.$store.dispatch(CREATE_TASK, {
+      this.$store.dispatch(`task/${CREATE_TASK}`, {
         tasks,
         name: this.newTask
       });
       this.newTask = '';
     },
     removeColumn(colIndex) {
-      this.$store.dispatch(REMOVE_COLUMN, colIndex);
+      this.$store.dispatch(`column/${REMOVE_COLUMN}`, colIndex);
     },
     removeAllTask(colIndex) {
-      this.$store.dispatch(REMOVE_ALL_TASKS, colIndex);
+      this.$store.dispatch(`task/${REMOVE_ALL_TASKS}`, colIndex);
     }
   },
   components: {

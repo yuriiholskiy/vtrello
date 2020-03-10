@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     updateTaskProp(value, key) {
-      this.$store.dispatch(UPDATE_TASK, {
+      this.$store.dispatch(`task/${UPDATE_TASK}`, {
         task: this.task,
         key,
         value

@@ -59,7 +59,10 @@ export default {
         author: this.comment.author,
         content: this.comment.content
       };
-      this.$store.dispatch(ADD_COMMENT, { task: this.task, comment });
+      this.$store.dispatch(`comment/${ADD_COMMENT}`, {
+        task: this.task,
+        comment
+      });
       this.comment = this.createFreshComment();
     }
   },
