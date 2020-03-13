@@ -2,9 +2,10 @@ import { CREATE_COLUMN, MOVE_COLUMN, REMOVE_COLUMN } from '../consts';
 const column = {
   namespaced: true,
   mutations: {
-    [CREATE_COLUMN](_, { name, rootState }) {
+    [CREATE_COLUMN](_, { name, color, rootState }) {
       rootState.board.columns.push({
         name,
+        color,
         tasks: []
       });
     },
@@ -18,8 +19,8 @@ const column = {
     }
   },
   actions: {
-    [CREATE_COLUMN]({ commit, rootState }, { name }) {
-      commit(CREATE_COLUMN, { name, rootState });
+    [CREATE_COLUMN]({ commit, rootState }, { name, color }) {
+      commit(CREATE_COLUMN, { name, color, rootState });
     },
     [MOVE_COLUMN]({ commit, rootState }, { fromColIndex, toColIndex }) {
       commit(MOVE_COLUMN, { fromColIndex, toColIndex, rootState });

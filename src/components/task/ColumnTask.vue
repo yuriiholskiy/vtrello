@@ -1,7 +1,8 @@
 <template>
   <AppDrop @drop="moveTaskOrColumn">
     <AppDrag
-      class="bg-white p-3 m-2 rounded cursor-pointer hover:bg-grey-lighter"
+      class="p-3 m-2 rounded cursor-pointer hover:bg-grey-lighter"
+      :class="classes"
       :transfer-data="{
         type: 'task',
         fromColIndex: columnIndex,
@@ -40,8 +41,32 @@ export default {
   },
   mixins: [movingTaskAndColMixin],
   computed: {
+    classes() {
+      return {
+        'text-grey-lighter bg-red-light hover:bg-red': this.isTodoColumn,
+        'text-grey-lighter bg-green hover:bg-green-light': this.isDoneColumn,
+        'text-grey-lighter bg-orange hover:bg-orange-light': this
+          .isProgressColumn,
+        [this.color]: true
+      };
+    },
     commentsCount() {
       return this.task.comments.length;
+    },
+    isTodoColumn() {
+      return this.column.name.toLowerCase().includes('todo');
+    },
+    isDoneColumn() {
+      return this.column.name.toLowerCase().includes('done');
+    },
+    isProgressColumn() {
+      return this.column.name.toLowerCase().includes('progress');
+    },
+    isColorExist() {
+      return this.column.color || 'white';
+    },
+    color() {
+      return `bg-${this.isColorExist} hover:bg-${this.isColorExist}-light`;
     }
   },
   methods: {

@@ -1,20 +1,21 @@
 <template>
   <AppDrop @drop="moveTaskOrColumn">
     <AppDrag
+      :isDraggable="true"
       class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-128 overflow-y-auto"
       :transfer-data="{ type: 'column', fromColIndex: columnIndex }"
     >
       <div
         class="flex items-center justify-around font-bold"
-        @dblclick="removeColumn(columnIndex)"
+        @dblclick="openModal"
       >
         <span>{{ column.name }}</span>
         <button
           v-if="isClearBtnShown"
-          class="p-2 text-white bg-indigo rounded"
-          @click="removeAllTask(columnIndex)"
+          class="btn"
+          @click="openTasksDeleteModal"
         >
-          Clear task
+          Clear tasks
         </button>
       </div>
       <div class="list-reset">
@@ -36,6 +37,31 @@
         />
       </div>
     </AppDrag>
+    <AppModal :isOpen="isModalOpen" @click.self="closeModal">
+      <div
+        class="delete-modal w-1/2 h-64 mt-16 mx-auto p-2 bg-white flex flex-col justify-between items-center"
+      >
+        <div>
+          <h2 class="mt-2">Do you really want delete {{ deleteModalText }}?</h2>
+          <p class="mt-2">It's unreversable action.</p>
+        </div>
+        <div>
+          <button
+            class="btn bg-indigo"
+            @click="
+              isColumnDelete
+                ? removeColumn(columnIndex)
+                : removeAllTask(columnIndex)
+            "
+          >
+            Continue
+          </button>
+          <button class="btn ml-2 bg-red-light" @click="closeModal">
+            Close
+          </button>
+        </div>
+      </div>
+    </AppModal>
   </AppDrop>
 </template>
 
@@ -45,18 +71,24 @@ import ColumnTask from '@/components/task/ColumnTask';
 import AppDrag from '@/components/reusable/AppDrag';
 import AppDrop from '@/components/reusable/AppDrop';
 import AppInputField from '@/components/ui/AppInputField';
+import AppModal from '@/components/ui/AppModal';
 import movingTaskAndColMixin from '@/mixins/movingTaskAndColMixin';
 export default {
   name: 'BoardColumn',
   mixins: [movingTaskAndColMixin],
   data() {
     return {
-      newTask: ''
+      newTask: '',
+      isModalOpen: false,
+      isColumnDelete: true
     };
   },
   computed: {
     isClearBtnShown() {
       return this.column.tasks.length;
+    },
+    deleteModalText() {
+      return this.isColumnDelete ? 'this column' : 'this tasks';
     }
   },
   methods: {
@@ -69,16 +101,30 @@ export default {
     },
     removeColumn(colIndex) {
       this.$store.dispatch(`column/${REMOVE_COLUMN}`, colIndex);
+      this.closeModal();
     },
     removeAllTask(colIndex) {
       this.$store.dispatch(`task/${REMOVE_ALL_TASKS}`, colIndex);
+      this.closeModal();
+    },
+    openModal() {
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.isModalOpen = false;
+      this.isColumnDelete = true;
+    },
+    openTasksDeleteModal() {
+      this.isColumnDelete = false;
+      this.openModal();
     }
   },
   components: {
     ColumnTask,
     AppDrag,
     AppDrop,
-    AppInputField
+    AppInputField,
+    AppModal
   }
 };
 </script>
@@ -86,5 +132,11 @@ export default {
 <style>
 .column {
   min-width: 350px;
+}
+.delete-modal {
+  max-width: 600px;
+}
+.btn {
+  @apply p-2 rounded text-white bg-indigo;
 }
 </style>
