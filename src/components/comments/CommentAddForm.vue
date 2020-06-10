@@ -3,6 +3,7 @@
     <AppInputField
       v-model="comment.author"
       type="text"
+      class="bg-grey-light"
       placeholder="who you are?"
     />
     <AppInputField
