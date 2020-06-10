@@ -2,7 +2,7 @@
   <AppDrop @drop="moveTaskOrColumn">
     <AppDrag
       :isDraggable="true"
-      class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-164 overflow-y-auto overflov-x-hidden"
+      class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-164 overflow-y-auto overflow-x-hidden"
       :transfer-data="{ type: 'column', fromColIndex: columnIndex }"
     >
       <div
