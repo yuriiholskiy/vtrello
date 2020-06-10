@@ -2,7 +2,7 @@
   <form class="w-full">
     <AppInputField
       type="text"
-      class="text-xl"
+      class="text-xl bg-grey-light"
       :value="task.name"
       @change="updateTaskProp($event.target.value, 'name')"
       @keyup.enter="updateTaskProp($event.target.value, 'name')"

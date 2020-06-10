@@ -2,7 +2,7 @@
   <AppDrop @drop="moveTaskOrColumn">
     <AppDrag
       :isDraggable="true"
-      class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-128 overflow-y-auto"
+      class="column bg-grey-light p-2 mr-4 text-left shadow rounded max-h-164 overflow-y-auto overflov-x-hidden"
       :transfer-data="{ type: 'column', fromColIndex: columnIndex }"
     >
       <div
@@ -32,6 +32,7 @@
         <AppInputField
           field-type="input"
           placeholder="+ Enter new task"
+          class="mt-2"
           v-model="newTask"
           @keyup.enter="createTask(column.tasks)"
         />

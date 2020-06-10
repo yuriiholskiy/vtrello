@@ -10,8 +10,8 @@
       />
 
       <div class="column flex">
-        <input
-          type="text"
+        <AppInputField
+          field-type="input"
           class="p-2 mr-2 flex-grow rounded"
           placeholder="New Column Name"
           v-model="newColumnName"
@@ -31,6 +31,7 @@ import { CREATE_COLUMN } from '@/store/consts';
 import { mapState } from 'vuex';
 import AppModal from '@/components/ui/AppModal';
 import BoardColumn from '@/components/BoardColumn';
+import AppInputField from '@/components/ui/AppInputField';
 export default {
   name: 'Board',
   data() {
@@ -68,7 +69,8 @@ export default {
   },
   components: {
     AppModal,
-    BoardColumn
+    BoardColumn,
+    AppInputField
   }
 };
 </script>
