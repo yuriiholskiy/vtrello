@@ -12,7 +12,7 @@
     v-bind="$attrs"
     :value="value"
     v-on="combineListeners"
-    class="w-full p-2 mr-2 block rounded bg-grey-lighten text-sm outline-none"
+    class="w-95 py-2 ml-2 block rounded bg-grey-lighten text-sm outline-none"
   />
 </template>
 
