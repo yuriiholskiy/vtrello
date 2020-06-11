@@ -7,7 +7,7 @@
       :class="{ 'in-task': inTask }"
       :style="{ 'background-color': label.color }"
       :title="label.name"
-      @click="manipulateLabel(label, $event)"
+      @click="manipulateLabel(label)"
     />
   </div>
 </template>
@@ -30,14 +30,13 @@ export default {
     }
   },
   methods: {
-    manipulateLabel(label, e) {
+    manipulateLabel(label) {
       if (this.isLabelsMenuShow) {
         this.$store.dispatch(`task/${ADD_LABEL}`, {
           task: this.task.task,
           label
         });
       } else {
-        if (e.target.classList.contains('in-task')) return;
         this.$store.dispatch(`task/${REMOVE_LABEL}`, {
           task: this.task,
           label

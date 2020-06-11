@@ -10,7 +10,7 @@
       }"
       @click="openTask"
     >
-      <TaskLabels :task="task" :in-task="true" />
+      <TaskLabels :task="task" class="pointer-events-none" />
       <div class="w-full flex justify-between font-bold mt-2">
         <p>{{ task.name }}</p>
         <span class="text-sm flex align-center" v-if="commentsCount > 0">
