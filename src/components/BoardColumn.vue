@@ -27,6 +27,7 @@
           :column="column"
           :task="task"
           :board="board"
+          class="task"
         />
 
         <AppInputField
@@ -132,7 +133,7 @@ export default {
 
 <style>
 .column {
-  min-width: 350px;
+  min-width: 400px;
 }
 .delete-modal {
   max-width: 600px;

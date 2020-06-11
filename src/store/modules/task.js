@@ -3,7 +3,9 @@ import {
   CREATE_TASK,
   UPDATE_TASK,
   MOVE_TASK,
-  REMOVE_ALL_TASKS
+  REMOVE_ALL_TASKS,
+  ADD_LABEL,
+  REMOVE_LABEL
 } from '../consts';
 import { uuid } from '../../utils';
 const task = {
@@ -14,7 +16,8 @@ const task = {
         name,
         id: uuid(),
         description: '',
-        comments: []
+        comments: [],
+        labels: []
       });
     },
     [UPDATE_TASK](_, { task, key, value }) {
@@ -27,6 +30,15 @@ const task = {
     [REMOVE_ALL_TASKS](_, { colIndex, rootState }) {
       const column = rootState.board.columns[colIndex];
       column.tasks.splice(0, column.tasks.length);
+    },
+    [ADD_LABEL](_, { task, label }) {
+      task.labels.push(label);
+    },
+    [REMOVE_LABEL](_, { task, label }) {
+      const taskLabelIndex = task.labels.findIndex(
+        (l) => l.name === label.name
+      );
+      task.labels.splice(taskLabelIndex, 1);
     }
   },
   actions: {
@@ -44,6 +56,12 @@ const task = {
     },
     [REMOVE_ALL_TASKS]({ commit, rootState }, colIndex) {
       commit(REMOVE_ALL_TASKS, { colIndex, rootState });
+    },
+    [ADD_LABEL]({ commit }, { task, label }) {
+      commit(ADD_LABEL, { task, label });
+    },
+    [REMOVE_LABEL]({ commit }, { task, label }) {
+      commit(REMOVE_LABEL, { task, label });
     }
   }
 };

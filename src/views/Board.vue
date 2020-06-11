@@ -1,6 +1,6 @@
 <template>
-  <div class="board p-4 min-h-with-toolbar overflow-y-hidden overflow-x-auto">
-    <div class="flex flex-row items-start">
+  <div class="board min-h-with-toolbar overflow-y-hidden overflow-x-auto">
+    <div class="flex flex-row items-start m-4 mb-0">
       <BoardColumn
         v-for="(column, columnIndex) of board.columns"
         :key="columnIndex"

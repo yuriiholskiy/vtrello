@@ -3,20 +3,28 @@
     <div class="flex flex-col flex-grow items-start justify-between px-4">
       <TaskLabels :task="task" />
       <TaskUpdateForm :task="task" class="mt-2" />
-      <button
-        type="button"
-        class="btn mt-4 bg-indigo rounded"
-        @click="hideComments"
-      >
-        {{ hideCommentsBtnText }}
-      </button>
-      <button
-        type="button"
-        class="btn mt-4 bg-indigo rounded"
-        @click="addLabels"
-      >
-        Add labels
-      </button>
+      <div>
+        <button
+          type="button"
+          class="btn mt-4 bg-indigo rounded"
+          @click="hideComments"
+        >
+          {{ hideCommentsBtnText }}
+        </button>
+        <button
+          type="button"
+          class="btn mt-4 ml-2 bg-indigo rounded"
+          @click="isLabelsMenuShow = !isLabelsMenuShow"
+        >
+          Add labels
+        </button>
+        <TaskLabels
+          :task="{ labels: filteredLabels, task }"
+          :isLabelsMenuShow="isLabelsMenuShow"
+          v-if="isLabelsMenuShow"
+          class="mt-2"
+        />
+      </div>
       <transition name="fade" mode="out-in">
         <div class="w-full md:h-auto" v-if="isCommentShow">
           <h3 class="mt-4 text-grey-darker text-xl">Comments:</h3>
@@ -37,11 +45,14 @@ import TaskUpdateForm from '@/components/task/TaskUpdateForm';
 import CommentList from '@/components/comments/CommentList';
 import CommentAddForm from '@/components/comments/CommentAddForm';
 import TaskLabels from '@/components/task/TaskLabels';
+import labels from '@/utils/labels';
 export default {
   name: 'Task',
   data() {
     return {
-      isCommentShow: false
+      isCommentShow: false,
+      isLabelsMenuShow: false,
+      labels
     };
   },
   computed: {
@@ -51,14 +62,16 @@ export default {
     },
     hideCommentsBtnText() {
       return this.isCommentShow ? 'Hide comments' : 'Show comments';
+    },
+    filteredLabels() {
+      return this.labels.filter((l) =>
+        this.task.labels.every((l1) => l.name !== l1.name)
+      );
     }
   },
   methods: {
     hideComments() {
       this.isCommentShow = !this.isCommentShow;
-    },
-    addLabels() {
-      console.log('addLabels');
     }
   },
   components: {

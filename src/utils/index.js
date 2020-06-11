@@ -43,11 +43,11 @@ export default {
           ],
           labels: [
             {
-              name: 'done',
+              name: 'Done',
               color: '#38c172'
             },
             {
-              name: 'checked',
+              name: 'Checked',
               color: '#6cb2eb'
             }
           ]
@@ -76,7 +76,7 @@ export default {
           ],
           labels: [
             {
-              name: 'working',
+              name: 'In progress',
               color: '#faad63'
             }
           ]
@@ -134,7 +134,7 @@ export default {
           ],
           labels: [
             {
-              name: 'need improvement',
+              name: 'Need improvement',
               color: '#ba2be2'
             }
           ]

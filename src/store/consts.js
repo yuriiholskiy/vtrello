@@ -7,3 +7,5 @@ export const REMOVE_COLUMN = 'REMOVE_COLUMN';
 export const MOVE_COLUMN = 'MOVE_COLUMN';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const ADD_LABEL = 'ADD_LABEL';
+export const REMOVE_LABEL = 'REMOVE_LABEL';
