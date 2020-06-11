@@ -1,5 +1,5 @@
 <template>
-  <header class="w-full bg-indigo-darker py-3 text-xl text-white">
+  <header class="w-full bg-orange py-3 text-xl text-white">
     {{ title }}
   </header>
 </template>

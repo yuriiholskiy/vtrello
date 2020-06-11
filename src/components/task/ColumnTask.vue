@@ -16,6 +16,7 @@
           >{{ commentsCount }} comments</span
         >
       </div>
+      <TaskLabels :task="task" />
       <p v-if="task.description" class="w-full flex-no-shrink mt-1 text-sm">
         {{ task.description }}
       </p>
@@ -27,6 +28,7 @@
 import movingTaskAndColMixin from '@/mixins/movingTaskAndColMixin';
 import AppDrag from '@/components/reusable/AppDrag';
 import AppDrop from '@/components/reusable/AppDrop';
+import TaskLabels from '@/components/task/TaskLabels';
 export default {
   name: 'ColumnTask',
   props: {
@@ -79,7 +81,8 @@ export default {
   },
   components: {
     AppDrag,
-    AppDrop
+    AppDrop,
+    TaskLabels
   }
 };
 </script>

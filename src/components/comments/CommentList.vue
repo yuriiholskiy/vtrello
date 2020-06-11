@@ -1,8 +1,10 @@
 <template>
   <ul class="comments mt-2 list-reset w-full">
     <CommentItem
-      v-for="comment of task.comments"
+      v-for="(comment, commentIndex) of task.comments"
       :comment="comment"
+      :comment-index="commentIndex"
+      :task="task"
       :key="comment.id"
     />
   </ul>

@@ -1,13 +1,21 @@
 <template>
   <div class="task-view max-h-128 overflow-y-auto">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <TaskUpdateForm :task="task" />
+      <TaskLabels :task="task" />
+      <TaskUpdateForm :task="task" class="mt-2" />
       <button
         type="button"
-        class="btn mt-4 bg-indigo-dark rounded"
+        class="btn mt-4 bg-indigo rounded"
         @click="hideComments"
       >
         {{ hideCommentsBtnText }}
+      </button>
+      <button
+        type="button"
+        class="btn mt-4 bg-indigo rounded"
+        @click="addLabels"
+      >
+        Add labels
       </button>
       <transition name="fade" mode="out-in">
         <div class="w-full md:h-auto" v-if="isCommentShow">
@@ -28,6 +36,7 @@ import { mapGetters } from 'vuex';
 import TaskUpdateForm from '@/components/task/TaskUpdateForm';
 import CommentList from '@/components/comments/CommentList';
 import CommentAddForm from '@/components/comments/CommentAddForm';
+import TaskLabels from '@/components/task/TaskLabels';
 export default {
   name: 'Task',
   data() {
@@ -47,12 +56,16 @@ export default {
   methods: {
     hideComments() {
       this.isCommentShow = !this.isCommentShow;
+    },
+    addLabels() {
+      console.log('addLabels');
     }
   },
   components: {
     TaskUpdateForm,
     CommentList,
-    CommentAddForm
+    CommentAddForm,
+    TaskLabels
   }
 };
 </script>

@@ -26,7 +26,8 @@ export default {
               content: 'Some comment title 2',
               author: 'Who?'
             }
-          ]
+          ],
+          labels: []
         },
         {
           description: '',
@@ -38,6 +39,16 @@ export default {
               id: uuid(),
               content: 'Some comment title',
               author: 'Who?'
+            }
+          ],
+          labels: [
+            {
+              name: 'done',
+              color: '#38c172'
+            },
+            {
+              name: 'checked',
+              color: '#6cb2eb'
             }
           ]
         },
@@ -62,6 +73,12 @@ export default {
               content: 'Some comment title 3',
               author: 'Who?'
             }
+          ],
+          labels: [
+            {
+              name: 'working',
+              color: '#faad63'
+            }
           ]
         }
       ]
@@ -85,7 +102,8 @@ export default {
               content: 'Some comment title 2',
               author: 'Who?'
             }
-          ]
+          ],
+          labels: []
         }
       ]
     },
@@ -112,6 +130,12 @@ export default {
               id: uuid(),
               content: 'Some comment title 3',
               author: 'Who?'
+            }
+          ],
+          labels: [
+            {
+              name: 'need improvement',
+              color: '#ba2be2'
             }
           ]
         }
