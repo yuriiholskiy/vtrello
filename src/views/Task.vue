@@ -1,19 +1,19 @@
 <template>
-  <div class="task-view max-h-128 overflow-y-auto">
-    <div class="flex flex-col flex-grow items-start justify-between px-4">
+  <div class="task-view min-h-100 overflow-y-auto rounded-sm">
+    <div class="flex flex-col flex-grow items-start px-4">
       <TaskLabels :task="task" />
       <TaskUpdateForm :task="task" class="mt-2" />
-      <div>
+      <div class="mt-4">
         <button
           type="button"
-          class="btn mt-4 bg-indigo rounded"
+          class="btn bg-indigo rounded"
           @click="hideComments"
         >
           {{ hideCommentsBtnText }}
         </button>
         <button
           type="button"
-          class="btn mt-4 ml-2 bg-indigo rounded"
+          class="btn ml-2 bg-indigo rounded"
           @click="isLabelsMenuShow = !isLabelsMenuShow"
         >
           Add labels
@@ -22,7 +22,7 @@
           :task="{ labels: filteredLabels, task }"
           :isLabelsMenuShow="isLabelsMenuShow"
           v-if="isLabelsMenuShow"
-          class="mt-2"
+          class="mt-4"
         />
       </div>
       <transition name="fade" mode="out-in">
@@ -85,13 +85,13 @@ export default {
 
 <style>
 .task-view {
-  @apply relative flex flex-row bg-white pin mx-4 mt-8 mx-auto py-4 text-left shadow;
+  @apply h-100 relative flex flex-row bg-white mx-4 mt-32 mx-auto py-4 text-left shadow;
 }
 .btn {
   @apply bg-blue text-white font-bold py-2 px-4 mt-1 cursor-pointer;
 }
 
 .task-view {
-  max-width: 700px;
+  max-width: 800px;
 }
 </style>

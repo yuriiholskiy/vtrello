@@ -39,6 +39,15 @@ export default {
       newColumnName: ''
     };
   },
+  created() {
+    const handler = (event) => {
+      if (event.key === 'Escape' && this.isTaskOpen) {
+        this.closeTaskModal();
+      }
+    };
+    document.addEventListener('keydown', handler);
+    this.$once('hook:beforeDestroy', handler);
+  },
   computed: {
     ...mapState(['board']),
     isTaskOpen() {

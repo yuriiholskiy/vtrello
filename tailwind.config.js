@@ -201,6 +201,7 @@ module.exports = {
     '32': '8rem',
     '48': '12rem',
     '64': '16rem',
+    '100': '25rem',
     '128': '32rem',
     full: '100%',
     screen: '100vh',
@@ -214,6 +215,7 @@ module.exports = {
 
   minHeight: {
     '0': '0',
+    '100': '28rem',
     full: '100%',
     screen: '100vh',
     'with-toolbar': `calc(100vh - ${APP_TOOLBAR_HEIGHT}px)`
@@ -235,7 +237,7 @@ module.exports = {
   maxHeight: {
     '64': '24rem',
     '128': '35rem',
-    '164': '42rem',
+    '164': '40.5rem',
     full: '100%',
     screen: '100vh'
   },

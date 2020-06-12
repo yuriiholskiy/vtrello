@@ -4,7 +4,7 @@
     v-bind="$attrs"
     :value="value"
     v-on="combineListeners"
-    class="relative w-full bg-grey-light py-2 pl-2 border rounded mt-2 h-32 border-none leading-normal outline-none"
+    class="relative w-full h-64 pl-1 bg-grey-light py-2 border rounded mt-2 h-32 border-none leading-normal outline-none"
   >
   </textarea>
   <input
@@ -12,7 +12,7 @@
     v-bind="$attrs"
     :value="value"
     v-on="combineListeners"
-    class="w-full py-2 pl-2 block rounded bg-grey-lighten text-sm outline-none"
+    class="w-full py-2 pl-1 block rounded bg-grey-lighten text-sm outline-none"
   />
 </template>
 

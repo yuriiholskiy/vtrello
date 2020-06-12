@@ -13,7 +13,7 @@
       placeholder="+ you can add a comment"
     />
     <input
-      class="btn rounded"
+      class="btn rounded mb-4"
       type="submit"
       value="+ add comment"
       :class="{
