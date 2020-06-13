@@ -46,7 +46,9 @@ export default {
       }
     };
     document.addEventListener('keydown', handler);
-    this.$once('hook:beforeDestroy', handler);
+    this.$once('hook:beforeDestroy', () => {
+      document.removeEventListener('keydown', handler);
+    });
   },
   computed: {
     ...mapState(['board']),

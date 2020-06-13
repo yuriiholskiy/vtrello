@@ -85,6 +85,17 @@ export default {
       isColumnDelete: true
     };
   },
+  created() {
+    const handler = (event) => {
+      if (event.key === 'Escape' && this.isModalOpen) {
+        this.closeModal();
+      }
+    };
+    document.addEventListener('keydown', handler);
+    this.$once('hook:beforeDestroy', () => {
+      document.removeEventListener('keydown', handler);
+    });
+  },
   computed: {
     isClearBtnShown() {
       return this.column.tasks.length;

@@ -2,7 +2,7 @@
   <div class="task-view min-h-100 overflow-y-auto rounded-sm">
     <div class="flex flex-col flex-grow items-start px-4">
       <h3 v-if="task.labels.length">Labels:</h3>
-      <TaskLabels :task="task" class="mt-1" />
+      <TaskLabels :task="task" class="mt-1" :with-name="true" />
       <TaskUpdateForm :task="task" class="mt-2" />
       <div class="mt-4 flex items-center mt-auto">
         <button
@@ -13,19 +13,21 @@
           {{ hideCommentsBtnText }}
         </button>
         <button
+          v-show="filteredLabels.length"
           type="button"
           class="btn ml-2 bg-indigo rounded"
           @click="isLabelsMenuShow = !isLabelsMenuShow"
         >
           Add labels
         </button>
-        <TaskLabels
-          :task="{ labels: filteredLabels, task }"
-          :isLabelsMenuShow="isLabelsMenuShow"
-          v-if="isLabelsMenuShow"
-          class="ml-4"
-        />
       </div>
+      <TaskLabels
+        v-if="isLabelsMenuShow"
+        :task="{ labels: filteredLabels, task }"
+        :with-name="true"
+        :isLabelsMenuShow="isLabelsMenuShow"
+        class="my-4"
+      />
       <transition name="fade" mode="out-in">
         <div class="w-full md:h-auto" v-if="isCommentShow">
           <h3 class="mt-4 text-grey-darker text-xl">Comments:</h3>
