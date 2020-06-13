@@ -2,7 +2,6 @@
   <div>
     <span
       v-for="label in task.labels"
-      v-tooltip.top="label.name"
       :key="label.name"
       class="color-label"
       :style="{ 'background-color': label.color }"
