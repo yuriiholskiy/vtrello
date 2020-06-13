@@ -1,9 +1,10 @@
 <template>
   <div class="task-view min-h-100 overflow-y-auto rounded-sm">
     <div class="flex flex-col flex-grow items-start px-4">
-      <TaskLabels :task="task" />
+      <h3 v-if="task.labels.length">Labels:</h3>
+      <TaskLabels :task="task" class="mt-1" />
       <TaskUpdateForm :task="task" class="mt-2" />
-      <div class="mt-4">
+      <div class="mt-4 flex items-center mt-auto">
         <button
           type="button"
           class="btn bg-indigo rounded"
@@ -22,7 +23,7 @@
           :task="{ labels: filteredLabels, task }"
           :isLabelsMenuShow="isLabelsMenuShow"
           v-if="isLabelsMenuShow"
-          class="mt-4"
+          class="ml-4"
         />
       </div>
       <transition name="fade" mode="out-in">
@@ -93,5 +94,8 @@ export default {
 
 .task-view {
   max-width: 800px;
+}
+.slot {
+  font-size: 8px;
 }
 </style>

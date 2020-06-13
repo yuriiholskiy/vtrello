@@ -39,4 +39,16 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(0 0 0 / 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(255 255 255 / 0.8);
+  border-radius: 5px;
+}
 </style>
