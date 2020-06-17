@@ -13,7 +13,8 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
     /^(?!(|.*?:)cursor-move).+-move$/,
     /^router-link(|-exact)-active$/,
     /data-v-.*/,
-    /^bg-.*/
+    /^bg-.*/,
+    /^::-.*/
   ]
 });
 

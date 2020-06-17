@@ -61,7 +61,7 @@ export default {
   computed: {
     ...mapGetters(['getTask']),
     task() {
-      return this.getTask(this.$route.params.id);
+      return this.getTask(this.$route.query.id);
     },
     hideCommentsBtnText() {
       return this.isCommentShow ? 'Hide comments' : 'Show comments';

@@ -88,9 +88,11 @@ export default {
   },
   methods: {
     openTask() {
+      const name = this.task.name.replace(' ', '_');
       this.$router.push({
         name: 'task',
-        params: { id: this.task.id }
+        params: { id: name },
+        query: { id: this.task.id }
       });
     }
   },
